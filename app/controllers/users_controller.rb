@@ -1,3 +1,3 @@
-class UsesController < ApplicationController
+class UsersController < ApplicationController
 
 end
