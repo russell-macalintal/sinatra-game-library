@@ -1,0 +1,7 @@
+<h2>List of all uses' games in the library</h2>
+
+<ul>
+  <% @games.each do |game| %>
+    <li><a href="/games/<%= game.id %>"><%= game.name %></li>
+  <% end %>
+</ul>

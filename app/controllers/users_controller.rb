@@ -40,3 +40,5 @@ class UsersController < ApplicationController
     redirect '/'
   end
 end
+
+# Implement method to remove lettercse requirements for username aatribute.
