@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Game Library</title>
+  </head>
+
+  <body>
+    <h1>Games! Games! Games!</h1>
+    <nav>
+      <a href="/">Home</a>  |
+      <% if logged_in? %>
+        <a href="/mygames">My Games</a>  |
+        <a href="/logout">Logout</a>
+      <% else %>
+        <a href="/login">Login</a>  |
+        <a href="/signup">Signup</a>
+      <% end %>
+    <div>
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

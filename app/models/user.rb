@@ -10,5 +10,6 @@ class User < ActiveRecord::Base
   has_many :console_users
   has_many :consoles, through: :console_users
 
+  validates_uniqueness_of :username
   has_secure_password
 end

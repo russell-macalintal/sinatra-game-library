@@ -14,4 +14,7 @@ class ApplicationController < Sinatra::Base
   end
 
   # Helper Methods
+  def logged_in?
+    !!session[:user_id]
+  end
 end
