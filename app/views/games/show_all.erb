@@ -5,3 +5,8 @@
     <li><a href="/games/<%= game.id %>"><%= game.name %></li>
   <% end %>
 </ul>
+<br><br>
+
+<% if logged_in? %>
+  <h4><a href='/games/new'>Add a game to your collection</a></h4>
+<% end %>
