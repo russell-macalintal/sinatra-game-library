@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user = User.new(username: params[:username], password: params[:password], password_confirmation: params[:pw_confirm])
     if @user.save
       session[:user_id] = @user.id
-      erb :welcome
+      redirect '/mygames/add'
     else
       redirect '/signup'
     end

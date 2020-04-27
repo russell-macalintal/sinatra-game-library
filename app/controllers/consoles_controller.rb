@@ -3,6 +3,14 @@ class ConsolesController < ApplicationController
 
   end
 
+  get '/myconsoles/add' do
+
+  end
+
+  post '/myconsoles' do
+
+  end
+
   get '/consoles' do
 
   end

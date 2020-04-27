@@ -1,20 +1,62 @@
 class GamesController < ApplicationController
   get '/mygames' do
-    @games = current_user.games
-    erb :'/games/show_all'
+    if logged_in?
+      @games = current_user.games
+      @path = request.path_info
+      erb :'/games/show_all'
+    else
+      redirect '/'
+    end
+  end
+
+  get '/mygames/add' do
+    if logged_in?
+      @games = Game.all
+      erb :'/games/add'
+    else
+      redirect '/'
+    end
+  end
+
+  post '/mygames' do
+    params[:game_ids].each do |game_id|
+      current_user.games << Game.find(game_id)
+    end
+
+    if params[:new_game] == true
+      redirect '/games/new'
+    else
+      redirect '/myconsoles/add'
+    end
   end
 
   get '/games' do
-    @games = Game.all
-    erb :'/games/show_all'
+    if logged_in?
+      @games = Game.all
+      @path = request.path_info
+      erb :'/games/show_all'
+    else
+      redirect '/'
+    end
   end
 
   get '/games/new' do
-
+    if logged_in?
+      @games = Game.all
+      erb :'/games/new'
+    else
+      redirect '/'
+    end
   end
 
   post '/games' do
+    current_user << Game.create(name: params[:name])
 
+    if params[:new_game] == true
+      redirect '/games/new'
+    else
+      redirect '/myconsoles/add'
+    end
   end
 
   get '/games/:id' do
