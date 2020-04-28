@@ -1,14 +1,14 @@
-<h2>Add some games to your collection!</h2>
+<h2>Edit your game collection!</h2>
 <h4>Select game(s) from the list below or add a new one.</h4>
 
 <form action="/mygames" method="post">
   <label>Select game(s):</label><br>
   <% @games.each do |game| %>
-    <input type="checkbox" id="game_<%= game.id %>" name="game_ids[]" value="<%= game.id %>"><%= game.name %><br>
+    <input type="checkbox" id="game_<%= game.id %>" name="game_ids[]" value="<%= game.id %>" <%= "checked" if @user.games.include?(game) %>><%= game.name %><br>
   <% end %>
   <br>
 
-  <input type="checkbox" id="new_game" name="new_game" value="true">Add new<br>
+  <input type="checkbox" id="new_game" name="new_game" value="true">Add new game<br>
   <br>
 
   <input type="submit" value="Add game(s) to your collection">

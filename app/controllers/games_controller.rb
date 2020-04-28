@@ -3,7 +3,7 @@ class GamesController < ApplicationController
     if logged_in?
       @games = current_user.games
       @path = request.path_info
-      erb :'/games/show_all'
+      erb :'/games/show_list'
     else
       redirect '/'
     end
@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
   get '/mygames/add' do
     if logged_in?
+      @user = current_user
       @games = Game.all
       erb :'/games/add'
     else
@@ -20,13 +21,16 @@ class GamesController < ApplicationController
 
   post '/mygames' do
     params[:game_ids].each do |game_id|
-      current_user.games << Game.find(game_id)
+      game = Game.find(game_id)
+      if !current_user.games.include?(game)
+        current_user.games << game
+      end
     end
 
-    if params[:new_game] == true
+    if params[:new_game] == "true"
       redirect '/games/new'
     else
-      redirect '/myconsoles/add'
+      redirect '/mygames'
     end
   end
 
@@ -34,12 +38,13 @@ class GamesController < ApplicationController
     if logged_in?
       @games = Game.all
       @path = request.path_info
-      erb :'/games/show_all'
+      erb :'/games/show_list'
     else
       redirect '/'
     end
   end
 
+# New games can be added by any signed-in user.
   get '/games/new' do
     if logged_in?
       @games = Game.all
@@ -50,20 +55,25 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    current_user << Game.create(name: params[:name])
-
-    if params[:new_game] == true
+    new_game = Game.create(name: params[:name])
+    current_user.games << new_game
+    if params[:new_game] == "true"
       redirect '/games/new'
     else
-      redirect '/myconsoles/add'
+      redirect '/mygames'
     end
   end
 
   get '/games/:id' do
-    @game = Game.find(params[:id])
-    erb :'/games/show_details'
+    if logged_in?
+      @game = Game.find(params[:id])
+      erb :'/games/show_details'
+    else
+      redirect '/'
+    end
   end
 
+# Game details (already in the library) can only be edited by ADMIN user.
   get '/games/:id/edit' do
 
   end
