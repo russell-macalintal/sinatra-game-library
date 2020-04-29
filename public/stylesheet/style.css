@@ -1,5 +1,5 @@
-h1 {
-  color: blue;
+h1, h2, h3, h4, a, li, p, form {
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 #flash {

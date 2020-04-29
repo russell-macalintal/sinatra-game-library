@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
+
   get '/login' do
     if logged_in?
       erb :welcome
@@ -13,6 +17,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       erb :welcome
     else
+      flash[:message] = "Error: That username/password combination was not found."
       redirect '/login'
     end
   end
@@ -31,6 +36,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       erb :welcome
     else
+      flash[:message] = "Error: Please check that the passwords match or choose a different username (A user with that name may already exist)."
       redirect '/signup'
     end
   end
@@ -41,4 +47,5 @@ class UsersController < ApplicationController
   end
 end
 
-# Implement method to remove lettercse requirements for username aatribute.
+# Future Features:
+# Implement method to remove lettercase requirements for username attribute.

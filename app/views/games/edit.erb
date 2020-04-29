@@ -1,0 +1,20 @@
+<h2>Edit Game Details or Delete Game</h2>
+<p>Note: Only ADMIN account has permission to edit or delete game details.</p>
+
+<form action="/games/<%= @game.id %>" method="post">
+  <input type="hidden" id="hidden" name="_method" value="patch">
+  <label>Edit game name:</label>
+  <input type="text" id="name" name="name">
+  <br>
+
+  <input type="submit" value="Edit game">
+</form>
+
+<br><br>
+<h4>OR</h4>
+<br><br>
+
+<form action="/games/<%= @game.id %>/delete" method="post">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete game">
+</form>

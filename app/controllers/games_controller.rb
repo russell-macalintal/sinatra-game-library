@@ -84,15 +84,34 @@ class GamesController < ApplicationController
 
 # Game details (already in the library) can only be edited by ADMIN user.
   get '/games/:id/edit' do
-
+    if logged_in?
+      if current_user.username == "ADMIN"
+        @game = Game.find(params[:id])
+        erb :'/games/edit'
+      else
+        erb :unauthorized
+      end
+    else
+      redirect '/'
+    end
   end
 
-  patch '/games/:id/edit' do
-
+  patch '/games/:id' do
+    if !Game.exists?(name: params[:name])
+      Game.find(params[:id]).update(name: params[:name])
+      flash[:message] = "Success: Game details updated."
+      redirect "/games/#{params[:id]}"
+    else
+      flash[:message] = "Error: A game with that name already exists. Check the edit."
+      redirect "/games/#{params[:id]}/edit"
+    end
   end
 
+# Games (already in the library) can only be deleted by ADMIN user.
   delete '/games/:id/delete' do
-
+    Game.find(params[:id]).delete
+    flash[:message] = "Success: Game deleted."
+    redirect '/games'
   end
 end
 

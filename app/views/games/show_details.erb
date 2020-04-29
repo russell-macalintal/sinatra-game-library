@@ -6,3 +6,7 @@
     <li><%= user.username %></li>
   <% end %>
 </ul>
+<br>
+<% if current_user.username == "ADMIN" %>
+  <h4><a href="/games/<%= @game.id %>/edit">Edit/Delete Game</a></h4>
+<% end %>
