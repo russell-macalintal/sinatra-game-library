@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class GamesController < ApplicationController
+  use Rack::Flash
+
   get '/mygames' do
     if logged_in?
       @games = current_user.games
@@ -47,7 +51,6 @@ class GamesController < ApplicationController
 # New games can be added by any signed-in user.
   get '/games/new' do
     if logged_in?
-      @games = Game.all
       erb :'/games/new'
     else
       redirect '/'
@@ -55,12 +58,18 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    new_game = Game.create(name: params[:name])
-    current_user.games << new_game
-    if params[:new_game] == "true"
-      redirect '/games/new'
+    if !Game.exists?(name: params[:name])
+      new_game = Game.create(name: params[:name])
+      current_user.games << new_game
+      flash[:message] = "Success: New game created in the library and added to your collection."
+      if params[:new_game] == "true"
+        redirect '/games/new'
+      else
+        redirect '/mygames'
+      end
     else
-      redirect '/mygames'
+      flash[:message] = "Error: Game already exists in the library."
+      redirect '/games/new'
     end
   end
 

@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>The Game Library</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
   </head>
 
   <body>
@@ -20,6 +21,12 @@
       <% end %>
     <div>
       <%= yield %>
+    </div>
+
+    <div id="flash">
+      <% if flash.has?(:message) %>
+        <%= flash[:message] %>
+      <% end %>
     </div>
 
   </body>

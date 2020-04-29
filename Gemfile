@@ -16,6 +16,7 @@ gem 'tux'
 gem 'bcrypt'
 gem 'require_all'
 gem 'sqlite3'
+gem 'rack-flash3'
 
 group :test do
   gem 'capybara'

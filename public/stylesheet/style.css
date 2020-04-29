@@ -1,0 +1,9 @@
+h1 {
+  color: blue;
+}
+
+#flash {
+  color: red;
+  background-color: lightgrey;
+  text-align: center;
+}
