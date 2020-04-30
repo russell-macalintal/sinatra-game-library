@@ -114,5 +114,3 @@ class GamesController < ApplicationController
     redirect '/games'
   end
 end
-
-# Implement validation to check if game is already on a User's library in order to prevent duplicates.

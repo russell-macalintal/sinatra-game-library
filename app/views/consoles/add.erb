@@ -1,0 +1,15 @@
+<h2>Edit your console collection!</h2>
+<h4>Select console(s) from the list below or add a new one to the library.</h4>
+
+<form action="/myconsoles" method="post">
+  <label>Select console(s):</label><br>
+  <% @consoles.each do |console| %>
+    <input type="checkbox" id="console_<%= console.id %>" name="console_ids[]" value="<%= console.id %>" <%= "checked" if @user.consoles.include?(console) %>><%= console.manufacturer %> <%= console.name %><br>
+  <% end %>
+  <br>
+
+  <input type="checkbox" id="new_console" name="new_console" value="true">Add new console<br>
+  <br>
+
+  <input type="submit" value="Add console(s) to your collection">
+</form>

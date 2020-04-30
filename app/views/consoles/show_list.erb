@@ -1,0 +1,15 @@
+<% if @path == '/myconsoles' %>
+  <h2>List of the consoles in your collection</h2>
+<% elsif @path == '/consoles' %>
+  <h2>List of all consoles in the library owned by users</h2>
+<% end %>
+
+<ul>
+  <% @consoles.each do |console| %>
+    <li><a href="/consoles/<%= game.id %>"><%= console.manufacturer %> <%= console.name %></li>
+  <% end %>
+</ul>
+
+<% if @path == '/myconsoles' %>
+  <h4><a href='/myconsoles/add'>Add</a> console(s) to your collection</h4>
+<% end %>
