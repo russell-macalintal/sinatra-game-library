@@ -4,9 +4,9 @@
 <form action="/consoles/<%= @console.id %>" method="post">
   <input type="hidden" id="hidden" name="_method" value="patch">
   <label>Edit console name:</label>
-  <input type="text" id="name" name="name">
+  <input type="text" id="name" name="name" value="<%= @console.name %>">
   <label>Edit console manufacturer:</label>
-  <input type="text" id="manufacturer" name="manufacturer">
+  <input type="text" id="manufacturer" name="manufacturer" value="<%= @console.manufacturer %>">
   <br>
 
   <input type="submit" value="Edit console">

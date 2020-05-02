@@ -10,6 +10,10 @@
   <% end %>
 </ul>
 
-<% if @path == '/mygames' %>
-  <h4><a href='/mygames/add'>Add</a> game(s) to your collection</h4>
+<% if @path == '/mygames' && current_user.username != "ADMIN" %>
+  <h4><a href='/mygames/update'>Update</a> game(s) in your collection</h4>
+<% end %>
+
+<% if current_user.username == "ADMIN" %>
+  <h4><a href='/games/new'>Add</a> new game to the library</h4>
 <% end %>

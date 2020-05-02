@@ -10,6 +10,10 @@
   <% end %>
 </ul>
 
-<% if @path == '/myconsoles' %>
-  <h4><a href='/myconsoles/add'>Add</a> console(s) to your collection</h4>
+<% if @path == '/myconsoles' && current_user.username != "ADMIN" %>
+  <h4><a href='/myconsoles/update'>Update</a> console(s) in your collection</h4>
+<% end %>
+
+<% if current_user.username == "ADMIN" %>
+  <h4><a href='/consoles/new'>Add</a> new console to the library</h4>
 <% end %>

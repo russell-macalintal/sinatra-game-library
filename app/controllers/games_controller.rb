@@ -5,6 +5,9 @@ class GamesController < ApplicationController
 
   get '/mygames' do
     if logged_in?
+      if current_user.username == "ADMIN"
+        current_user.games.clear
+      end
       @games = current_user.games
       @path = request.path_info
       erb :'/games/show_list'
@@ -13,20 +16,21 @@ class GamesController < ApplicationController
     end
   end
 
-  get '/mygames/add' do
+  get '/mygames/update' do
     if logged_in?
       @user = current_user
       @games = Game.all
-      erb :'/games/add'
+      erb :'/games/update'
     else
       redirect '/'
     end
   end
 
   post '/mygames' do
-    params[:game_ids].each do |game_id|
-      game = Game.find(game_id)
-      if !current_user.games.include?(game)
+    current_user.games.clear
+    if params[:game_ids]
+      params[:game_ids].each do |game_id|
+        game = Game.find(game_id)
         current_user.games << game
       end
     end
@@ -58,18 +62,23 @@ class GamesController < ApplicationController
   end
 
   post '/games' do
-    if !Game.exists?(name: params[:name])
-      new_game = Game.create(name: params[:name])
-      current_user.games << new_game
-      flash[:message] = "Success: New game created in the library and added to your collection."
-      if params[:new_game] == "true"
-        redirect '/games/new'
-      else
-        redirect '/mygames'
-      end
-    else
-      flash[:message] = "Error: Game already exists in the library."
+    if params[:name] =~ /\A\s*\Z/ || params[:name].empty?
+      flash[:message] = "Error: Invalid Input"
       redirect '/games/new'
+    else
+      if !Game.exists?(name: params[:name])
+        new_game = Game.create(name: params[:name])
+        current_user.games << new_game
+        flash[:message] = "Success: New game created in the library and added to your collection."
+        if params[:new_game] == "true"
+          redirect '/games/new'
+        else
+          redirect '/mygames'
+        end
+      else
+        flash[:message] = "Error: Game already exists in the library."
+        redirect '/games/new'
+      end
     end
   end
 
