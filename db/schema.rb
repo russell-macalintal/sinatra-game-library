@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_04_23_032514) do
 
-  create_table "consolee_users", force: :cascade do |t|
+  create_table "console_users", force: :cascade do |t|
     t.integer "console_id"
     t.integer "user_id"
   end

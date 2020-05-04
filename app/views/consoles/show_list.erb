@@ -6,7 +6,7 @@
 
 <ul>
   <% @consoles.each do |console| %>
-    <li><a href="/consoles/<%= game.id %>"><%= console.manufacturer %> <%= console.name %></li>
+    <li><a href="/consoles/<%= console.id %>"><%= console.name %></li>
   <% end %>
 </ul>
 

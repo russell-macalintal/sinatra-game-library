@@ -1,4 +1,5 @@
 user_list = {
+  "ADMIN" => "ADMIN",
   "Mario" => "Peach",
   "Link" => "Zelda",
   "MasterChief" => "Cortana",
@@ -60,14 +61,25 @@ consoles_list = {
   "Xbox One" => "Microsoft",
   "Xbox 360" => "Microsoft",
   "Xbox" => "Microsoft",
-  "Playstation" => "Sony",
-  "Playstation 2" => "Sony",
-  "Playstation 3" => "Sony",
   "Playstation 4" => "Sony",
-  "PC" => "Various",
-  "Dreamcast" => "Sega"
+  "Playstation 3" => "Sony",
+  "Playstation 2" => "Sony",
+  "Playstation" => "Sony",
+  "Dreamcast" => "Sega",
+  "PC" => "OEM Manufacturers"
 }
 
 consoles_list.each do |name, manuf|
   Console.create(name: name, manufacturer: manuf)
+end
+
+User.all.each do |user|
+  game_ids = (1..30).to_a.shuffle.pop(10)
+  game_ids.each do |id|
+    user.games << Game.find(id)
+  end
+  console_ids = (1..13).to_a.shuffle.pop(5)
+  console_ids.each do |id|
+    user.consoles << Console.find(id)
+  end
 end
