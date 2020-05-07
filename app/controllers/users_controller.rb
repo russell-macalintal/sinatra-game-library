@@ -31,13 +31,18 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    @user = User.new(username: params[:username], password: params[:password], password_confirmation: params[:pw_confirm])
-    if @user.save
-      session[:user_id] = @user.id
-      erb :welcome
-    else
-      flash[:message] = "Error: Please check that the passwords match or choose a different username (A user with that name may already exist)."
+    if User.find_by(username: params[:username])
+      flash[:message] = "Error: That username is already taken. Please select a different username."
       redirect '/signup'
+    else
+      @user = User.new(username: params[:username], password: params[:password], password_confirmation: params[:pw_confirm])
+      if @user.save
+        session[:user_id] = @user.id
+        erb :welcome
+      else
+        flash[:message] = "Error: Passwords do not match. Please try again."
+        redirect '/signup'
+      end
     end
   end
 
