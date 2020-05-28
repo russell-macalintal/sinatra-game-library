@@ -7,4 +7,5 @@ class Game < ActiveRecord::Base
   has_many :users, through: :game_users
 
   belongs_to :category
+  belongs_to :developer
 end

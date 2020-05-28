@@ -12,4 +12,5 @@ use Rack::MethodOverride
 use ConsolesController
 use GamesController
 use UsersController
+use DevelopersController
 run ApplicationController

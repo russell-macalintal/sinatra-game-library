@@ -1,0 +1,8 @@
+<h1>Developer Details</h1>
+
+<h2><%= @developer.name %></h2>
+<ul>
+    <% @developer.games.each do |game| %>
+        <li><%= game.name %></li>
+    <% end %>
+</ul>
